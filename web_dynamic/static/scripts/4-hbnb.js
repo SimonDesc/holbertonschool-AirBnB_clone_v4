@@ -1,6 +1,6 @@
 $(() => {
   // Un objet pour stocker les Amenity IDs
-  const amenities = {};
+  let amenities = {};
 
   $('input[type="checkbox"]').change(function () {
     const amenityId = $(this).closest('li').data('id'); // Prendre l'ID de l'aménité de l'élément li le plus proche
@@ -61,12 +61,13 @@ $(() => {
     }
   });
 
-  $('button').on('click', () => {
+	$('button').on('click', () => {
+	  let test = {amenities: amenities}
     $.ajax({
       url: 'http://127.0.0.1:5001/api/v1/places_search',
       type: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify(amenities),
+      data: JSON.stringify(test),
       success: function (place) {
         for (let i = 0; i < place.length; i++) {
           const user_url = 'http://127.0.0.1:5001/api/v1/users/' + place[i].user_id;
